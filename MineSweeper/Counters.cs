@@ -45,7 +45,7 @@ namespace MineSweeper
         }
         public bool CheckIfInsidefield(int x, int y)
         {
-            if ((((x) >= 0) && (x) <= 9) && (((y) >= 0) && (y) <= 9))
+            if ((((x) >= 0) && (x) < 10) && (((y) >= 0) && (y) < 10))
                 return true;
             else
                 return false;

@@ -82,23 +82,14 @@ namespace MineSweeper
                 {
 
                     for (int x = -1; x <= 1; x++)
-                    {
                         for (int y = -1; y <= 1; y++)
-                        {
-
                             if (count.CheckIfInsidefield(RandX + x, RandY + y))
-                            {
                                 if ((field.buttons[RandX, RandY].id[0] == (button.id[0] + x)) && (field.buttons[RandX, RandY].id[1] == (button.id[1] + y)))
                                 {
                                     ok = false;
                                     x = 3;
                                     y = 3;
                                 }
-                            }
-
-                        }
-
-                    }
 
                     if (ok)
                     {

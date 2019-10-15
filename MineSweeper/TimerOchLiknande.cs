@@ -33,7 +33,7 @@ namespace MineSweeper
             else if(name == SmileyNames.PressedNormal)
                 form1.SmileyBox.Image = form1.images.PressedRegularSmiley;
             else if(name == SmileyNames.winning)
-                form1.SmileyBox.Image = form1.images.WinnigSmiley;
+                form1.SmileyBox.Image = form1.images.WinningSmiley;
         }
 
         public enum SmileyNames
@@ -156,7 +156,7 @@ namespace MineSweeper
             if (!Form1.Done)
             {
                 Form1.Time++;
-                int ThisTime = Form1.Time;
+                int ThisTime = Form1.Time / 100;
 
 
                 if (ThisTime == 999)

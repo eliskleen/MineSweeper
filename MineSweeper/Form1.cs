@@ -21,6 +21,8 @@ namespace MineSweeper
         public static bool FirstClick = true;
         public Images images = new Images();
 
+        public LBoard board = new LBoard();
+
         public static int Bombs = 10;
         public static bool Done { get; set; }
         public static int Time { get; set; }
@@ -31,16 +33,20 @@ namespace MineSweeper
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+
+
             Time = 0;
             myTimer.Tick += new EventHandler(TimerAndStuff.TimerEventProcessor);
-            myTimer.Interval = 1000;
+            myTimer.Interval = 10;
 
-
+            
             field.Connect(this);
             create.Connect(field);
             counter.Connect(this);
 
-           
+
             
             TimerAndStuff.Connect(this);
 
@@ -54,8 +60,10 @@ namespace MineSweeper
 
             TimerAndStuff.FlagsLeftToPlace();
 
-
-
+            
+            comboBox1.Text = Bombs.ToString();
+            comboBox1.Enabled = false;
+            comboBox1.Enabled = true;
             // bool pressed = field.buttons[1, 3].Bomb;
 
 
@@ -69,12 +77,19 @@ namespace MineSweeper
                 field.Show();
                 Done = true;
                 TimerAndStuff.SetSmiley(TimerOchLiknande.SmileyNames.Blown);
+               
             }
             else
             {
                 TimerAndStuff.SetSmiley(TimerOchLiknande.SmileyNames.winning);
                 Done = true;
+                if(board.IsTopTen(Time, Bombs))
+                {
+                    AddToLeaderBoard AddForm = new AddToLeaderBoard(Time);
+                    AddForm.ShowDialog();
+                }
                 
+
             }
 
         }
@@ -87,7 +102,58 @@ namespace MineSweeper
         private void SmileyBox_MouseUp(object sender, MouseEventArgs e)
         {
             TimerAndStuff.SetSmiley(TimerOchLiknande.SmileyNames.normal);
+            
             field.Restart();
+            button1.PerformClick();
+        }
+
+        private void comboBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+                button1.PerformClick();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (!myTimer.Enabled)
+            {
+
+                int test = 0;
+                string text = comboBox1.Text;
+                string[] split = text.Split(':');
+
+                if (split[0] == "TimerIntervallSet")
+                {
+                    if (Int32.TryParse(split[1], out test))
+                        myTimer.Interval = test;
+                }
+                else if (Int32.TryParse(text, out test))
+                {
+                    if(test > 91)
+                        MessageBox.Show("Asså va gör du? kan du inte räkna eller? du får inte ha mer än 91 bomber....");
+                    else
+                    {
+                        Bombs = test;
+                        field.FlagsLeftToPlace = Bombs;
+                        TimerAndStuff.FlagsLeftToPlace();
+                    }
+                    
+                }
+                else
+                    MessageBox.Show("Asså fattar du inte att det bara ska vara siffror här? Ärligt...");
+
+            }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            button1.PerformClick();
+        }
+
+        private void ShowLeaderBoard_Click(object sender, EventArgs e)
+        {
+            LeaderBoardForm l = new LeaderBoardForm();
+            l.Show();
         }
     }
 }
