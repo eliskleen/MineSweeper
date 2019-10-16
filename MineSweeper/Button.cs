@@ -37,6 +37,7 @@ namespace MineSweeper
         {
             field = field1;
             form1 = field1.form1;
+
             counter = field1.counter;
         }
         public void Button_Clicked(object sender, EventArgs e)
