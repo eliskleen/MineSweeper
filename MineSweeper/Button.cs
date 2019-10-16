@@ -76,8 +76,6 @@ namespace MineSweeper
                 {
                     if(Bomb)
                     {
-                        KeyEventArgs key = new KeyEventArgs();
-                        if(key.KeyCode = )
                         Console.Beep();
                     }
                 }
