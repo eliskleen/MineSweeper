@@ -14,6 +14,7 @@ namespace MineSweeper
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
         public int AmmountOfFlaggs { get; set; }
         public int AmmountOfBombs { get; set; }
+
         public bool Bomb { get; set; }
         public bool Flagged { get; set; }
         public bool Open { get; set; }
