@@ -149,6 +149,7 @@ namespace MineSweeper
                     {
                         field.buttons[RandX, RandY].Bomb = true;
                         field.TotalAmmountOfBombs++;
+
                         a++;
                     }
 
