@@ -10,7 +10,8 @@ namespace MineSweeper
     public class Field
     {
 
-        public Button[,] buttons = new Button[10, 10];
+        public Button[,] buttons = new Button[70, 40];
+        public Images images = new Images();
         public Form1 form1 { get; set; }
         public Create create { get; set; }
         public Counters counter { get; set; }
@@ -25,6 +26,7 @@ namespace MineSweeper
             form1 = form;
             counter = form1.counter;
             create = form1.create;
+            int test = Form1.width;
             FlagsLeftToPlace = Form1.Bombs;
             TotalAmmountOfBombs = Form1.Bombs;
         }
@@ -35,13 +37,22 @@ namespace MineSweeper
         public void Restart()
         {
 
+
+            form1.InitializePictures();
+
+
+
+
+
             FlagsLeftToPlace = Form1.Bombs;
             Form1.FirstClick = true;
             create.Createfield(false);
             Form1.Time = 0;
             Form1.Done = false;
             Form1.TimerAndStuff.ResetTimer();
+            Form1.TimerAndStuff.FlagsLeftToPlace();
             Form1.myTimer.Stop();
+
 
         }
 
@@ -65,7 +76,7 @@ namespace MineSweeper
             else if (!button.Flagged && !button.Open)
             {
 
-                //button.Open = true;
+                button.Open = true;
                 button.ThisButton.Image = counter.CountAndShowNumberOfBombs(button);
             }
             else if (button.Open && !button.Flagged)
@@ -95,17 +106,17 @@ namespace MineSweeper
         
         public void Show()
         {
-            for (int a = 0; a <= 9; a++)
-                for (int b = 0; b <= 9; b++)
+            for (int b = 0; b < Form1.height; b++)
+                for (int a = 0; a < Form1.width; a++)
                 {
                     if (buttons[a, b].Bomb && !buttons[a, b].Open && !buttons[a, b].Flagged)
-                        buttons[a, b].ThisButton.Image = buttons[a, b].images.BombImage;
+                        buttons[a, b].ThisButton.Image = images.BombImage;
                     else if (!buttons[a, b].Bomb && !buttons[a, b].Open && buttons[a, b].Flagged)
-                        buttons[a, b].ThisButton.Image = buttons[a, b].images.WrongPlacedFlag;
+                        buttons[a, b].ThisButton.Image = images.WrongPlacedFlag;
                     else if (buttons[a, b].Bomb && buttons[a, b].Open)
-                        buttons[a, b].ThisButton.Image = buttons[a, b].images.OpenedBomb;
+                        buttons[a, b].ThisButton.Image = images.OpenedBomb;
                     else if (!buttons[a, b].Bomb && buttons[a, b].Flagged)
-                        buttons[a, b].ThisButton.Image = buttons[a, b].images.WrongPlacedFlag;
+                        buttons[a, b].ThisButton.Image = images.WrongPlacedFlag;
 
 
                     buttons[a, b].ThisButton.Update();

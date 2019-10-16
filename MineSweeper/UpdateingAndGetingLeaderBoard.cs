@@ -25,9 +25,9 @@ namespace MineSweeper
                     SqlCommand command = new SqlCommand($@" select top 10 
                                                                                 [Time]
                                                                             FROM LeaderBoard
-                                                                            where AmmountOfBombs = @AmmountOfBombs
+                                                                            where Game = @Game
                                                                             order by time desc", Con);
-                    command.Parameters.AddWithValue("@AmmountOfBombs", AmmountOfBombs);
+                    command.Parameters.AddWithValue("@Game", Form1.Game);
 
                     var EventLog = command.ExecuteReader();
                     int ammount = 0;
@@ -67,7 +67,7 @@ namespace MineSweeper
         }
     
 
-        public List<LeaderBoard> GetLeaderBoard(int AmmountOfBombs)
+        public List<LeaderBoard> GetLeaderBoard(string Game)
         {
 
             ConnnectionString = "Data Source=.;Initial Catalog=MineSweeper;Integrated Security=True";
@@ -79,28 +79,28 @@ namespace MineSweeper
                 try
                 {
                     Con.Open();
-                    if (AmmountOfBombs != 0)
+                    if (Game != "")
                     {
                         CommandString = $@"SELECT [Time]
                                                                   ,[Name]
-                                                                  ,[AmmountOfBombs]
+                                                                  ,[Game]
                                                               FROM [LeaderBoard]
-                                                              where AmmountOfBombs =  @AmmountOfBombs
+                                                              where Game =  @Game
                                                               order by [Time] asc";
                     }
-                    else if (AmmountOfBombs == 0)
+                    else if (Game == "")
                     {
                         CommandString = $@"SELECT[Time]
                                                 ,[Name]
-                                                ,[AmmountOfBombs]
+                                                ,[Game]
                                                 FROM[LeaderBoard]
                                                 order by[Time] asc";
                     }
 
                         SqlCommand command = new SqlCommand(CommandString, Con);
 
-                    if(AmmountOfBombs != 0)
-                    command.Parameters.AddWithValue("@AmmountOfBombs", AmmountOfBombs);
+                    if(Game != "")
+                    command.Parameters.AddWithValue("@Game", Game);
                     int placement = 1;
                     var EventLog = command.ExecuteReader();
                     while (EventLog.Read())
@@ -110,7 +110,7 @@ namespace MineSweeper
                             var row = new LeaderBoard();
                             row.Time = float.Parse(EventLog.GetValue(0).ToString());
                             row.Name = EventLog.GetValue(1).ToString();
-                            row.AmmountOfBombs = EventLog.GetInt32(2);
+                            row.Game = EventLog.GetString(2);
                             row.placement = placement;
                             placement++;
                             LeaderBoard.Add(row);
@@ -126,7 +126,7 @@ namespace MineSweeper
             }
             return LeaderBoard;
         }
-        public void AddToLeaderBoard(int Time, string name, int AmmountOfBombs)
+        public void AddToLeaderBoard(int Time, string name, string Game)
         {
             ConnnectionString = "Data Source=.;Initial Catalog=MineSweeper;Integrated Security=True";
             string conStr = ConnnectionString;
@@ -139,14 +139,14 @@ namespace MineSweeper
                     SqlCommand command = new SqlCommand($@"INSERT INTO LeaderBoard
                                                                         ([Time]
                                                                         ,[Name]
-                                                                        ,[AmmountOfBombs])
+                                                                        ,[Game])
                                                                     VALUES
                                                                         (@Time
                                                                         ,@Name
-                                                                        ,@AmmountOfBombs)", Con);
+                                                                        ,@Game)", Con);
                     command.Parameters.AddWithValue("@Time", ActualTime);
                     command.Parameters.AddWithValue("@Name", name);
-                    command.Parameters.AddWithValue("@AmmountOfBombs", AmmountOfBombs);
+                    command.Parameters.AddWithValue("@Game", Game);
                     var EventLog = command.ExecuteNonQuery();
 
 

@@ -10,7 +10,7 @@ namespace MineSweeper
 {
     public class Button
     {
-        public Images images = new Images();
+        
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
         public int AmmountOfFlaggs { get; set; }
         public int AmmountOfBombs { get; set; }
@@ -18,6 +18,7 @@ namespace MineSweeper
         public bool Flagged { get; set; }
         public bool Open { get; set; }
         public int[] id = new int[2];
+        public bool AssignedClick { get; set; }
         public System.Windows.Forms.PictureBox ThisButton { get; set; }
         public Field field = new Field();
         public Form1 form1 { get; set; }
@@ -28,6 +29,7 @@ namespace MineSweeper
             Flagged = false;
             Open = false;
             Bomb = false;
+            AssignedClick = false;
 
 
         }
@@ -35,6 +37,7 @@ namespace MineSweeper
         {
             field = field1;
             form1 = field1.form1;
+            counter = field1.counter;
         }
         public void Button_Clicked(object sender, EventArgs e)
         {
@@ -52,13 +55,13 @@ namespace MineSweeper
                         form1.Finished(true);
 
                 }
-                if (me.Button == MouseButtons.Right && !Form1.FirstClick)
+                else if (me.Button == MouseButtons.Right && !Form1.FirstClick)
                 {
                     if (!Flagged && !Open)
                     {
                         Flagged = !Flagged;
                         field.FlagsLeftToPlace--;
-                        this.ThisButton.Image = images.Flag;
+                        this.ThisButton.Image = field.images.Flag;
                         Form1.TimerAndStuff.FlagsLeftToPlace();
                     }
                     else if (Flagged && !Open)
@@ -66,12 +69,17 @@ namespace MineSweeper
                         Flagged = !Flagged;
                         field.FlagsLeftToPlace++;
                         Form1.TimerAndStuff.FlagsLeftToPlace();
-                        this.ThisButton.Image = images.UnpressedButton;
+                        this.ThisButton.Image = field.images.UnpressedButton;
                     }
-
-
-
-
+                }
+                else if(me.Button == MouseButtons.Middle && !Form1.FirstClick)
+                {
+                    if(Bomb)
+                    {
+                        KeyEventArgs key = new KeyEventArgs();
+                        if(key.KeyCode = )
+                        Console.Beep();
+                    }
                 }
 
 

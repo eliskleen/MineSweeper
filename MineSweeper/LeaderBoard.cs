@@ -11,6 +11,6 @@ namespace MineSweeper
         public int placement { get; set; }
         public string Name { get; set; }
         public float Time { get; set; }
-        public int AmmountOfBombs { get; set; }
+        public string Game { get; set; }
     }
 }

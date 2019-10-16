@@ -31,7 +31,8 @@ namespace MineSweeper
         {
             LBoard Lboard = new LBoard();
 
-            Lboard.AddToLeaderBoard(Time, NameTxtBox.Text, Form1.Bombs);
+                Lboard.AddToLeaderBoard(Time, NameTxtBox.Text, Form1.Game);
+                
             Close();
         }
     }

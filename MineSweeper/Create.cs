@@ -22,22 +22,26 @@ namespace MineSweeper
         public void CreateButtons(bool first)
         {
 
-            for (int a = 0; a <= 9; a++)
-                for (int b = 0; b <= 9; b++)
+
+
+            for (int a = 0; a < 30; a++)
+                for (int b = 0; b < 16; b++)
                 {
-                    if (first)
+
+                    if(first)
                     {
                         field.buttons[a, b] = new Button();
                         field.buttons[a, b].Connect(field);
                     }
-                    else
-                    {
+                        
+                    
+
                         field.buttons[a, b].Open = false;
                         field.buttons[a, b].Flagged = false;
                         field.buttons[a, b].Bomb = false;
                         field.buttons[a, b].AmmountOfBombs = 0;
                         field.buttons[a, b].AmmountOfFlaggs = 0;
-                    }
+                    
 
 
 
@@ -47,21 +51,71 @@ namespace MineSweeper
         public void Createfield(bool first)
         {
             Form1.TimerAndStuff.FlagsLeftToPlace();
+            if(first)
             CreateButtons(first);
-            int number = 0;
-            for (int a = 0; a <= 9; a++)
-                for (int b = 0; b <= 9; b++)
+
+            
+
+                    int number = 1;
+            int counter = 0;
+            for (int b = 0; b < Form1.height; b++)
+                for (int a = 0; a < Form1.width; a++)
                 {
                     field.buttons[a, b].id[0] = a;
                     field.buttons[a, b].id[1] = b;
-                    field.buttons[a, b].ThisButton = (System.Windows.Forms.PictureBox)form1.Controls["pictureBox" + (number + 1).ToString()];
-                    if (first)
-                        field.buttons[a, b].ThisButton.MouseDown += field.buttons[a, b].Button_Clicked;
-                    field.buttons[a, b].ThisButton.BackColor = Color.LightGray;
-                    field.buttons[a, b].ThisButton.Image = field.buttons[a, b].images.UnpressedButton;
-                    field.buttons[a, b].Open = false;
-                    number++;
+                    if (counter == Form1.width && Form1.width != 30)
+                    {
+                        number += (30 - Form1.width);
+                        counter = 0;
+                    }
+                        
+                    if(number <= 480)
+                    {
+                        field.buttons[a, b].ThisButton = (System.Windows.Forms.PictureBox)form1.Controls["pictureBox" + number.ToString()];
+                        if (!field.buttons[a, b].AssignedClick)
+                        {
+                            field.buttons[a, b].ThisButton.MouseDown += field.buttons[a, b].Button_Clicked;
+                            field.buttons[a, b].AssignedClick = true;
+                        }
+                            
+                        field.buttons[a, b].ThisButton.BackColor = Color.LightGray;
+                        field.buttons[a, b].ThisButton.Image = field.images.UnpressedButton;
+                        field.buttons[a, b].Open = false;
+                        field.buttons[a, b].Flagged = false;
+                        field.buttons[a, b].Bomb = false;
+                        field.buttons[a, b].AmmountOfBombs = 0;
+                        field.buttons[a, b].AmmountOfFlaggs = 0;
+                        counter++;
+                        number++;
+                    }
+                    
                 }
+            for (int a = Form1.width; a < 30; a++)
+                for (int b = 0; b <  16; b++)
+                {
+                    Color test = form1.BackColor;
+                    if(field.buttons[a, b].ThisButton != null)
+                    {
+                        field.buttons[a, b].ThisButton.BackColor = test;
+                        field.buttons[a, b].ThisButton.Image = null;
+                        field.buttons[a, b].ThisButton.Update();
+                    }
+                    
+                }
+
+            for (int b = Form1.height; b < 16; b++)
+                for (int a = 0; a < 30; a++)
+                {
+                    Color test = form1.BackColor;
+                    if (field.buttons[a, b].ThisButton != null)
+                    {
+                        field.buttons[a, b].ThisButton.BackColor = test;
+                        field.buttons[a, b].ThisButton.Image = null;
+                        field.buttons[a, b].ThisButton.Update();
+                    }
+                }
+
+
         }
         public void PlaceBombs(int ammount, Button button)
         {
@@ -75,9 +129,9 @@ namespace MineSweeper
             {
                 ok = true;
 
-                int RandX = rnd.Next(10);
-                int RandY = rnd.Next(10);
-
+                int RandX = rnd.Next(Form1.width);
+                int RandY = rnd.Next(Form1.height);
+                
                 if (!field.buttons[RandX, RandY].Bomb)
                 {
 
