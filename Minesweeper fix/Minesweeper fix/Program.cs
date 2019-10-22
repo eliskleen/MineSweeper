@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DynamicFieldTest
+namespace Minesweeper_fix
 {
     static class Program
     {

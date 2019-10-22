@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DynamicFieldTest.Properties
+namespace Minesweeper_fix.Properties
 {
 
 

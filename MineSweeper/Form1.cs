@@ -132,7 +132,7 @@ namespace MineSweeper
             {
                 TimerAndStuff.SetSmiley(TimerOchLiknande.SmileyNames.winning);
                 Done = true;
-                if(board.IsTopTen(Time, Bombs))
+                if(board.IsTopTen(Time, Game))
                 {
                     AddToLeaderBoard AddForm = new AddToLeaderBoard(Time);
                     AddForm.ShowDialog();

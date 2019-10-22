@@ -12,7 +12,7 @@ namespace MineSweeper
 
         public static string ConnnectionString { get; set; }
 
-        public bool IsTopTen(int Time, int AmmountOfBombs)
+        public bool IsTopTen(int Time, string Game)
         {
             ConnnectionString = "Data Source=.;Initial Catalog=MineSweeper;Integrated Security=True";
             string conStr = ConnnectionString;
@@ -40,10 +40,10 @@ namespace MineSweeper
                                                                         select top 10 
                                                                                 [Time]
                                                                             FROM LeaderBoard
-                                                                            where AmmountOfBombs = @AmmountOfBombs
+                                                                             Game = @Game
                                                                             order by time asc) as ID
                                                                             order by time desc", Con);
-                    command.Parameters.AddWithValue("@AmmountOfBombs", AmmountOfBombs);
+                    command.Parameters.AddWithValue("@Game", Game);
                     EventLog = command.ExecuteReader();
                     while(EventLog.Read())
                     {
@@ -111,7 +111,7 @@ namespace MineSweeper
                             row.Time = float.Parse(EventLog.GetValue(0).ToString());
                             row.Name = EventLog.GetValue(1).ToString();
                             row.Game = EventLog.GetString(2);
-                            row.placement = placement;
+                            row.Placement = placement;
                             placement++;
                             LeaderBoard.Add(row);
                         }
@@ -148,6 +148,7 @@ namespace MineSweeper
                     command.Parameters.AddWithValue("@Name", name);
                     command.Parameters.AddWithValue("@Game", Game);
                     var EventLog = command.ExecuteNonQuery();
+                    var test = command.ExecuteReader();
 
 
                 }

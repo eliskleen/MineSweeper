@@ -8,25 +8,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DynamicFieldTest
+namespace Minesweeper_fix
 {
     public partial class Form1 : Form
     {
-        Image closed = Image.FromFile($@"C: \Users\elis.kleen\Desktop\MineSweeper\MineSweeper\bin\Debug\Bilder\Buttons\UnpressedButton.png");
-        
-        int height = 10;
-        int with = 10;
         public Form1()
         {
             InitializeComponent();
-            
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           
-           
+            this.Size = MineSweeper.Form1.SetSize;
+            var test = form11.AutoScaleDimensions;
 
+        }
+
+
+        private void form11_Resize(object sender, EventArgs e)
+        {
+            this.Size = MineSweeper.Form1.SetSize;
+        }
+
+        private void form11_Resize_1(object sender, EventArgs e)
+        {
+            this.Size = MineSweeper.Form1.SetSize;
         }
     }
 }

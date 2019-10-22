@@ -8,7 +8,7 @@ namespace MineSweeper
 {
     public class LeaderBoard
     {
-        public int placement { get; set; }
+        public int Placement { get; set; }
         public string Name { get; set; }
         public float Time { get; set; }
         public string Game { get; set; }

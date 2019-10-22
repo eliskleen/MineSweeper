@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DynamicFieldTest")]
+[assembly: AssemblyTitle("Minesweeper fix")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Veoneer")]
-[assembly: AssemblyProduct("DynamicFieldTest")]
+[assembly: AssemblyProduct("Minesweeper fix")]
 [assembly: AssemblyCopyright("Copyright © Veoneer 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6167c9d6-2fe2-46a8-a88f-9613434f0bcd")]
+[assembly: Guid("f82b3259-6fde-4f5a-ba6e-a5240ea39dca")]
 
 // Version information for an assembly consists of the following four values:
 //
