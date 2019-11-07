@@ -53,20 +53,13 @@ namespace MineSweeper
                     this.creator = new System.Windows.Forms.PictureBox();
                     ((System.ComponentModel.ISupportInitialize)(this.creator)).BeginInit();
                     this.SuspendLayout();
-                    // 
-                    // 
-                    // 
-
+                    
                     this.creator.Location = new System.Drawing.Point(x, y);
-
-
 
                     this.creator.Name = $"pictureBox{(i + 1).ToString()}";
                     this.creator.Size = new System.Drawing.Size(36, 36);
                     this.creator.TabIndex = 0;
                     this.creator.TabStop = false;
-                    //this.creator.Image = images.UnpressedButton;
-
 
                     ((System.ComponentModel.ISupportInitialize)(this.creator)).EndInit();
                     this.Controls.Add(this.creator);
@@ -132,7 +125,7 @@ namespace MineSweeper
             {
                 TimerAndStuff.SetSmiley(TimerOchLiknande.SmileyNames.winning);
                 Done = true;
-                if(board.IsTopTen(Time, Bombs))
+                if(board.IsTopTen(Time, Game))
                 {
                     AddToLeaderBoard AddForm = new AddToLeaderBoard(Time);
                     AddForm.ShowDialog();

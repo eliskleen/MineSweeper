@@ -10,11 +10,10 @@ namespace MineSweeper
     public class LBoard
     {
 
-        public static string ConnnectionString { get; set; }
+        public static string ConnnectionString = ConnnectionString = @"Data Source=.;Initial Catalog=MineSweeper;Integrated Security=True";
 
-        public bool IsTopTen(int Time, int AmmountOfBombs)
+        public bool IsTopTen(int Time, string Game)
         {
-            ConnnectionString = "Data Source=.;Initial Catalog=MineSweeper;Integrated Security=True";
             string conStr = ConnnectionString;
             float ActuallTime = (float)Time / 100;
             using (var Con = new SqlConnection(conStr))
@@ -27,41 +26,36 @@ namespace MineSweeper
                                                                             FROM LeaderBoard
                                                                             where Game = @Game
                                                                             order by time desc", Con);
-                    command.Parameters.AddWithValue("@Game", Form1.Game);
+                    command.Parameters.AddWithValue("@Game", Game);
 
-                    var EventLog = command.ExecuteReader();
+                    var TopTen = command.ExecuteReader();
                     int ammount = 0;
-                    while (EventLog.Read())
+                    while (TopTen.Read())
                         ammount++;
-                    if(ammount < 10)
+                    Con.Close();
+                    if (ammount < 10)
                         return true;
-                    EventLog.Close();
-                    command = new SqlCommand($@"SELECT top 1 * from ( 
-                                                                        select top 10 
+                    Con.Open();
+                    command = new SqlCommand($@"SELECT top 1 * from ( select top 10 
                                                                                 [Time]
                                                                             FROM LeaderBoard
-                                                                            where AmmountOfBombs = @AmmountOfBombs
+                                                                            where Game = @Game
                                                                             order by time asc) as ID
                                                                             order by time desc", Con);
-                    command.Parameters.AddWithValue("@AmmountOfBombs", AmmountOfBombs);
-                    EventLog = command.ExecuteReader();
-                    while(EventLog.Read())
-                    {
-                        float GetTime = float.Parse(EventLog.GetValue(0).ToString());
-
-
-                        if (GetTime < ActuallTime)
-                            return false;
-                        else
-                            return true;
-                    }
-                    return true;
+                    command.Parameters.AddWithValue("@Game", Game);
+                    float GetTime = float.Parse(command.ExecuteScalar().ToString());
                     Con.Close();
+
+                    if (GetTime < ActuallTime)
+                        return false;
+                    else
+                        return true;
+                    
                 }
                 catch (System.Exception e)
                 {
                     System.Windows.Forms.MessageBox.Show(e.ToString());
-                    return false; 
+                    return false;
                 }
             }
         }
@@ -70,7 +64,6 @@ namespace MineSweeper
         public List<LeaderBoard> GetLeaderBoard(string Game)
         {
 
-            ConnnectionString = "Data Source=.;Initial Catalog=MineSweeper;Integrated Security=True";
             List<LeaderBoard> LeaderBoard = new List<LeaderBoard>();
             string conStr = ConnnectionString;
             string CommandString = "";
@@ -128,7 +121,6 @@ namespace MineSweeper
         }
         public void AddToLeaderBoard(int Time, string name, string Game)
         {
-            ConnnectionString = "Data Source=.;Initial Catalog=MineSweeper;Integrated Security=True";
             string conStr = ConnnectionString;
             float ActualTime = (float)Time / 100;
             using (var Con = new SqlConnection(conStr))
