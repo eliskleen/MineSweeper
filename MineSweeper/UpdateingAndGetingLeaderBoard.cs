@@ -103,7 +103,7 @@ namespace MineSweeper
                             row.Time = float.Parse(EventLog.GetValue(0).ToString());
                             row.Name = EventLog.GetValue(1).ToString();
                             row.Game = EventLog.GetString(2);
-                            row.placement = placement;
+                            row.Placement = placement;
                             placement++;
                             LeaderBoard.Add(row);
                         }
@@ -138,7 +138,7 @@ namespace MineSweeper
                     command.Parameters.AddWithValue("@Time", ActualTime);
                     command.Parameters.AddWithValue("@Name", name);
                     command.Parameters.AddWithValue("@Game", Game);
-                    var EventLog = command.ExecuteNonQuery();
+                    command.ExecuteNonQuery();
 
 
                 }
