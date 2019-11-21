@@ -10,8 +10,7 @@ namespace MineSweeper
     public class LBoard
     {
 
-        public static string ConnnectionString = ConnnectionString = @"Data Source=.;Initial Catalog=MineSweeper;Integrated Security=True";
-
+        public static string ConnnectionString = ConnnectionString = @"Data Source=SE02-OF-WL2999\NEWSQLEXPRESS;Initial Catalog=MineSweeper;Integrated Security=True";
         public bool IsTopTen(int Time, string Game)
         {
             string conStr = ConnnectionString;
@@ -25,7 +24,7 @@ namespace MineSweeper
                                                                                 [Time]
                                                                             FROM LeaderBoard
                                                                             where Game = @Game
-                                                                            order by time desc", Con);
+                                                                            order by time asc", Con);
                     command.Parameters.AddWithValue("@Game", Game);
 
                     var TopTen = command.ExecuteReader();
